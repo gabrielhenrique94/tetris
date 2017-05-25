@@ -1,0 +1,33 @@
+package game.models;
+
+import game.base.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static game.base.Vector.add;
+
+/**
+ * Created by Gabriel on 23/05/2017.
+ */
+public abstract class Body {
+
+    protected float[] speed = new float[3];
+    protected float[] position = new float[3];
+
+    public void applySpeed(float[] speed) {
+        this.speed = add(this.speed, speed);
+    }
+
+    public void stop() {
+        speed = new float[0];
+    }
+
+    public abstract void render();
+
+    public void step() {
+        position = add(position, speed);
+    }
+
+
+}
