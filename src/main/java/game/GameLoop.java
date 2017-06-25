@@ -18,7 +18,7 @@ public class GameLoop implements Game.Loop {
 
     List<SimpleCube> bodies = new ArrayList<>();
     private BodiesAttacher attachers;
-    private float[] initialPos = {500, 500, 0};
+    private float[] initialPos = {500, 800, 0};
     private float[] initialSpd = {0, DOWN_SPEED, 0};
 
     @Override

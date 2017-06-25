@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b6416bd-e7b7-45f9-a961-e27bce210726" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/game/GameLoop.java" afterPath="$PROJECT_DIR$/src/main/java/game/GameLoop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/game/base/BodiesAttacher.java" afterPath="$PROJECT_DIR$/src/main/java/game/base/BodiesAttacher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/game/base/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/game/base/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/game/models/SimpleCube.java" afterPath="$PROJECT_DIR$/src/main/java/game/models/SimpleCube.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/game/models/Stick.java" afterPath="$PROJECT_DIR$/src/main/java/game/models/Stick.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/game/models/StickT.java" afterPath="$PROJECT_DIR$/src/main/java/game/models/StickT.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,11 +17,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameLoop.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameLoop.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/game/GameLoop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state relative-caret-position="153">
+              <caret line="65" column="38" lean-forward="true" selection-start-line="65" selection-start-column="38" selection-end-line="65" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2633#2634#0" expanded="true" />
@@ -39,7 +34,7 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/game/base/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
+            <state relative-caret-position="1470">
               <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
               <folding />
             </state>
@@ -83,8 +78,8 @@
       <file leaf-file-name="SimpleCube.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/game/models/SimpleCube.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+            <state relative-caret-position="289">
+              <caret line="27" column="1" lean-forward="true" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#464#465#0" expanded="true" />
@@ -94,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Math.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Math.java" pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Math.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="1217" column="24" lean-forward="false" selection-start-line="1217" selection-start-column="24" selection-end-line="1217" selection-end-column="24" />
+            <state relative-caret-position="9137">
+              <caret line="1222" column="47" lean-forward="false" selection-start-line="1222" selection-start-column="47" selection-end-line="1222" selection-end-column="47" />
               <folding>
                 <element signature="e#47714#47715#0" expanded="true" />
                 <element signature="e#47763#47764#0" expanded="true" />
@@ -230,8 +225,8 @@
         <option value="$PROJECT_DIR$/src/main/java/game/models/Stick.java" />
         <option value="$PROJECT_DIR$/src/main/java/game/base/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/game/base/BodiesAttacher.java" />
-        <option value="$PROJECT_DIR$/src/main/java/game/GameLoop.java" />
         <option value="$PROJECT_DIR$/src/main/java/game/models/SimpleCube.java" />
+        <option value="$PROJECT_DIR$/src/main/java/game/GameLoop.java" />
       </list>
     </option>
   </component>
@@ -848,15 +843,15 @@
       <workItem from="1495470508908" duration="576000" />
       <workItem from="1495589838511" duration="3735000" />
       <workItem from="1495667953384" duration="3796000" />
-      <workItem from="1498414642950" duration="5637000" />
+      <workItem from="1498414642950" duration="6701000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33441000" />
+    <option name="totallyTimeSpent" value="34505000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1256,26 +1251,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/base/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/GameLoop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2633#2634#0" expanded="true" />
-            <element signature="e#2694#2695#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/game/base/BodiesAttacher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
@@ -1290,10 +1265,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9137">
+          <caret line="1222" column="47" lean-forward="false" selection-start-line="1222" selection-start-column="47" selection-end-line="1222" selection-end-column="47" />
+          <folding>
+            <element signature="e#47714#47715#0" expanded="true" />
+            <element signature="e#47763#47764#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/game/models/SimpleCube.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+        <state relative-caret-position="289">
+          <caret line="27" column="1" lean-forward="true" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#464#465#0" expanded="true" />
@@ -1302,13 +1288,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/Math.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/game/base/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="1217" column="24" lean-forward="false" selection-start-line="1217" selection-start-column="24" selection-end-line="1217" selection-end-column="24" />
+        <state relative-caret-position="1470">
+          <caret line="120" column="0" lean-forward="true" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/game/GameLoop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="65" column="38" lean-forward="true" selection-start-line="65" selection-start-column="38" selection-end-line="65" selection-end-column="38" />
           <folding>
-            <element signature="e#47714#47715#0" expanded="true" />
-            <element signature="e#47763#47764#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2633#2634#0" expanded="true" />
+            <element signature="e#2694#2695#0" expanded="true" />
           </folding>
         </state>
       </provider>

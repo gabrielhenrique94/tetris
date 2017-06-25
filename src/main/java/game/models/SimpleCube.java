@@ -22,7 +22,7 @@ public class SimpleCube extends Body {
     }
 
     public boolean willCollide(SimpleCube cube) {
-        return (Math.abs(cube.position[1] - position[1]) + DOWN_SPEED) < CUBE_SIZE;
+        return ((Math.abs(cube.position[1] - position[1]) + DOWN_SPEED) < CUBE_SIZE)&& ((Math.abs(cube.position[0] - position[0])) < CUBE_SIZE);
     }
 
 }
