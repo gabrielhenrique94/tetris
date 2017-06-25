@@ -2,34 +2,24 @@ package game;
 
 import game.base.BodiesAttacher;
 import game.base.Game;
-import game.base.Vector;
-import game.models.Body;
 import game.models.SimpleCube;
 import game.models.Stick;
-import game.models.StickT;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static game.base.Constants.CUBE_SIZE;
 import static game.base.Constants.DOWN_SPEED;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class GameLoop implements Game.Loop {
 
-    private FloatBuffer matSpecular;
-    private FloatBuffer lightPosition;
-    private FloatBuffer whiteLight;
-    private FloatBuffer lModelAmbient;
-
     List<SimpleCube> bodies = new ArrayList<>();
-    private List<BodiesAttacher> attachers = new ArrayList<>();
+    private BodiesAttacher attachers;
+    private float[] initialPos = {500, 500, 0};
+    private float[] initialSpd = {0, DOWN_SPEED, 0};
 
     @Override
     public void prepare() {
@@ -45,30 +35,20 @@ public class GameLoop implements Game.Loop {
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
         glLightfv(GL_LIGHT0, GL_POSITION, floatBuffer(20, 0, -20, 1));
-        float[] initialPos = {500, 500, 0};
-        float[] initialSpd = {0, DOWN_SPEED, 0};
         Stick stick = new Stick(initialPos, initialSpd);
-        attachers.add(stick);
-        
-        bodies.addAll(stick.getCubes());
-        for (int i = 0; i < (800 / CUBE_SIZE); i++) {
-
-        }
+        attachers = stick;
     }
 
     @Override
     public void processInput(long window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
             pause = !pause;
-        }
-        else if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
-            attachers.get(0).moveRight();
-        }
-        else if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
-            attachers.get(0).moveLeft();
-        }
-        else if (action == GLFW_RELEASE)
-            attachers.get(0).rotate();
+        } else if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
+            attachers.moveRight();
+        } else if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
+            attachers.moveLeft();
+        } else if (action == GLFW_RELEASE)
+            attachers.rotate();
 
 //            glfwSetWindowShouldClose(window, true);
     }
@@ -85,6 +65,8 @@ public class GameLoop implements Game.Loop {
         glColor3d(1, 1, 0);
         for (SimpleCube body : bodies)
             body.render();
+        for (SimpleCube body : attachers.getCubes())
+            body.render();
     }
 
     @Override
@@ -97,13 +79,18 @@ public class GameLoop implements Game.Loop {
     @Override
     public void step() {
         if (!pause) {
-            for (BodiesAttacher attacher : attachers) {
-                attacher.step();
-            }
-            for (SimpleCube body : bodies) {
-                body.step();
+            if (attachers.checkCollision(bodies)) {
+                attachers.stop();
+                bodies.addAll(attachers.getCubes());
+                createNewAttacher();
+            } else {
+                attachers.step();
             }
         }
+    }
+
+    private void createNewAttacher() {
+        attachers = new Stick(initialPos, initialSpd);
     }
 
     public FloatBuffer floatBuffer(float a, float b, float c, float d) {

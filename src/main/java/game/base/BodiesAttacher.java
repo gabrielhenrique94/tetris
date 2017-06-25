@@ -1,11 +1,12 @@
 package game.base;
 
-import game.models.Body;
 import game.models.SimpleCube;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.base.Constants.DOWN_SPEED;
+import static game.base.Constants.SOLO_POSITION;
 import static game.base.Vector.add;
 
 /**
@@ -23,6 +24,11 @@ public class BodiesAttacher {
         return list;
     }
 
+    public void stop() {
+        float[] zero = {0f, 0f, 0f};
+        speed = zero;
+    }
+
     public void step() {
         position = add(position, speed);
     }
@@ -31,9 +37,23 @@ public class BodiesAttacher {
     public void rotate() {
     }
 
-    public void moveRight () {
+    public void moveRight() {
     }
 
     public void moveLeft() {
+    }
+
+    public boolean checkCollision(List<SimpleCube> bodies) {
+        for (SimpleCube a : cubes) {
+            if (checkSoloCollision(a)) return true; //stop body and cretae a new attacher
+            for (SimpleCube b : bodies) {
+                if (a.willCollide(b)) return true; //stop body and cretae a new attacher
+            }
+        }
+        return false;
+    }
+
+    private boolean checkSoloCollision(SimpleCube cube) {
+        return (position[1] + DOWN_SPEED) < SOLO_POSITION;
     }
 }
