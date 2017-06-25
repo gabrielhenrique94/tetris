@@ -5,5 +5,5 @@ package game.base;
  */
 public class Constants {
     public static final float CUBE_SIZE = 25;
-    public static final float DOWN_SPEED = -0.01f;//-0.05F;
+    public static final float DOWN_SPEED = -0.5f;//-0.01f;//-0.05F;
 }

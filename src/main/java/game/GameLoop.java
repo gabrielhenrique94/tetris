@@ -6,6 +6,7 @@ import game.base.Vector;
 import game.models.Body;
 import game.models.SimpleCube;
 import game.models.Stick;
+import game.models.StickT;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -15,6 +16,8 @@ import java.util.List;
 import static game.base.Constants.CUBE_SIZE;
 import static game.base.Constants.DOWN_SPEED;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -46,7 +49,7 @@ public class GameLoop implements Game.Loop {
         float[] initialSpd = {0, DOWN_SPEED, 0};
         Stick stick = new Stick(initialPos, initialSpd);
         attachers.add(stick);
-
+        
         bodies.addAll(stick.getCubes());
         for (int i = 0; i < (800 / CUBE_SIZE); i++) {
 
@@ -55,10 +58,18 @@ public class GameLoop implements Game.Loop {
 
     @Override
     public void processInput(long window, int key, int scancode, int action, int mods) {
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
             pause = !pause;
+        }
+        else if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
+            attachers.get(0).moveRight();
+        }
+        else if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
+            attachers.get(0).moveLeft();
+        }
         else if (action == GLFW_RELEASE)
             attachers.get(0).rotate();
+
 //            glfwSetWindowShouldClose(window, true);
     }
 

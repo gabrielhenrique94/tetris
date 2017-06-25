@@ -30,4 +30,10 @@ public class BodiesAttacher {
 
     public void rotate() {
     }
+
+    public void moveRight () {
+    }
+
+    public void moveLeft() {
+    }
 }
