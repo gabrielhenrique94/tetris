@@ -27,6 +27,15 @@ public class BodiesAttacher {
     public void stop() {
         float[] zero = {0f, 0f, 0f};
         speed = zero;
+        for (SimpleCube cube : cubes)
+            cube.position = normalizePosition(cube.position);
+    }
+
+    float[] normalizePosition(float[] position) {
+        for (int i = 0; i < position.length; i++) {
+            position[i] = Math.round(position[i] / 25f) * 25f;
+        }
+        return position;
     }
 
     public void step() {

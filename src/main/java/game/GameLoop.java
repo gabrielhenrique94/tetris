@@ -43,14 +43,12 @@ public class GameLoop implements Game.Loop {
     public void processInput(long window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
             pause = !pause;
-        } else if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
+        } else if (key == GLFW_KEY_RIGHT && (action == GLFW_REPEAT || action == GLFW_PRESS)) {
             attachers.moveRight();
-        } else if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
+        } else if (key == GLFW_KEY_LEFT && (action == GLFW_REPEAT || action == GLFW_PRESS)) {
             attachers.moveLeft();
-        } else if (action == GLFW_RELEASE)
+        } else if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
             attachers.rotate();
-
-//            glfwSetWindowShouldClose(window, true);
     }
 
     int count = 0;
@@ -61,7 +59,7 @@ public class GameLoop implements Game.Loop {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPopMatrix();
         glPushMatrix();
-        glRotated(-10, 1, 1, 0);
+        glRotated(-5, 1, 1, 0);
         glColor3d(1, 1, 0);
         for (SimpleCube body : bodies)
             body.render();

@@ -13,7 +13,7 @@ import static game.base.Vector.add;
 public abstract class Body {
 
     protected float[] speed = new float[3];
-    protected float[] position = new float[3];
+    public float[] position = new float[3];
 
     public void applySpeed(float[] speed) {
         this.speed = add(this.speed, speed);
