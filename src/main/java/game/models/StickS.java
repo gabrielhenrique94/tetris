@@ -24,8 +24,8 @@ public class StickS extends BodiesAttacher {
 
     private int rotacao = 0;
     //incompleto
-    float delta[][][] = {   {{0,0,0},{-CUBE_SIZE,0,0},{0,CUBE_SIZE,0},{CUBE_SIZE,0,0}},
-                            {{0,0,0},{0,-CUBE_SIZE,0},{CUBE_SIZE,0,0},{CUBE_SIZE,CUBE_SIZE,0}}};
+    float delta[][][] = {   {{0,0,0},{-CUBE_SIZE,-CUBE_SIZE,0},{0,-CUBE_SIZE,0},{CUBE_SIZE,0,0}},
+                            {{0,0,0},{0,CUBE_SIZE,0},{CUBE_SIZE,0,0},{CUBE_SIZE,-CUBE_SIZE,0}}};
     @Override
     public void step() {
         super.step();

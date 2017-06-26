@@ -60,6 +60,6 @@ public class Stick extends BodiesAttacher {
     }
 
     public void moveLeft() {
-        super.moveRight();
+        super.moveLeft();
     }
 }
