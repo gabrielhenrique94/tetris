@@ -1,3 +1,4 @@
+
 package game;
 
 import game.base.BodiesAttacher;
@@ -124,6 +125,5 @@ public class GameLoop implements Game.Loop {
         fb.flip();
         return fb;
     }
-
 
 }
