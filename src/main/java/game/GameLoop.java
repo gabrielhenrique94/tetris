@@ -4,14 +4,12 @@ import game.base.BodiesAttacher;
 import game.base.Game;
 import game.models.SimpleCube;
 import game.models.Stick;
-import game.models.StickT;
-import game.models.StickS;
-import game.models.StickZ;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static game.base.Constants.DOWN_SPEED;
 import static org.lwjgl.glfw.GLFW.*;
@@ -23,7 +21,10 @@ public class GameLoop implements Game.Loop {
     private BodiesAttacher attachers;
     private float[] initialPos = {500, 800, 0};
     private float[] initialSpd = {0, DOWN_SPEED, 0};
-
+    float red = 1;
+    float green = 0;
+    float blue = 0;
+    int bruno_cont = 0;
     @Override
     public void prepare() {
         System.out.println("PREPARE");
@@ -37,9 +38,28 @@ public class GameLoop implements Game.Loop {
         glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+
+        Random rand = new Random();
+        int has_zero = 0;
+
+        red = (float) rand.nextInt();
+        if (red == 0){
+            has_zero = 1;
+        }
+
+        green = (float) rand.nextInt();
+        if (green == 0){
+            has_zero = 1;
+        }
+
+        blue = (float) rand.nextInt();
+        if (blue == 0 && has_zero == 1){
+            blue =+ 1;
+        }
+
         glLightfv(GL_LIGHT0, GL_POSITION, floatBuffer(20, 0, -20, 1));
-        StickS stickS = new StickS(initialPos, initialSpd);
-        attachers = stickS;
+        Stick stick = new Stick(initialPos, initialSpd);
+        attachers = stick;
     }
 
     @Override
@@ -65,7 +85,7 @@ public class GameLoop implements Game.Loop {
         glPopMatrix();
         glPushMatrix();
         glRotated(-10, 1, 1, 0);
-        glColor3d(1, 1, 0);
+        glColor3d(red, green, blue);
         for (SimpleCube body : bodies)
             body.render();
         for (SimpleCube body : attachers.getCubes())
