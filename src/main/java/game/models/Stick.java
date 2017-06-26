@@ -57,15 +57,9 @@ public class Stick extends BodiesAttacher {
 
     public void moveRight() {
         super.moveRight();
-        System.out.println("PREPARE");
-        float[] relativePosition = {CUBE_SIZE, 0, 0};
-        position = add(position, relativePosition);
     }
 
     public void moveLeft() {
         super.moveRight();
-        System.out.println("PREPARE");
-        float[] relativePosition = {CUBE_SIZE, 0, 0};
-        position = sub(position, relativePosition);
     }
 }

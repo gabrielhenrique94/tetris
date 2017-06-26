@@ -4,6 +4,9 @@ import game.base.BodiesAttacher;
 import game.base.Game;
 import game.models.SimpleCube;
 import game.models.Stick;
+import game.models.StickT;
+import game.models.StickS;
+import game.models.StickZ;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -35,8 +38,8 @@ public class GameLoop implements Game.Loop {
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
         glLightfv(GL_LIGHT0, GL_POSITION, floatBuffer(20, 0, -20, 1));
-        Stick stick = new Stick(initialPos, initialSpd);
-        attachers = stick;
+        StickS stickS = new StickS(initialPos, initialSpd);
+        attachers = stickS;
     }
 
     @Override

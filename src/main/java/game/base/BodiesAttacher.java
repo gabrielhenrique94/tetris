@@ -5,9 +5,11 @@ import game.models.SimpleCube;
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.base.Constants.CUBE_SIZE;
 import static game.base.Constants.DOWN_SPEED;
 import static game.base.Constants.SOLO_POSITION;
 import static game.base.Vector.add;
+import static game.base.Vector.sub;
 
 /**
  * Created by Gabriel on 24/05/2017.
@@ -38,9 +40,13 @@ public class BodiesAttacher {
     }
 
     public void moveRight() {
+        float[] relativePosition = {CUBE_SIZE, 0, 0};
+        position = add(position, relativePosition);
     }
 
     public void moveLeft() {
+        float[] relativePosition = {CUBE_SIZE, 0, 0};
+        position = sub(position, relativePosition);
     }
 
     public boolean checkCollision(List<SimpleCube> bodies) {
