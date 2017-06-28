@@ -3,6 +3,7 @@ package game;
 
 import game.base.BodiesAttacher;
 import game.base.Game;
+import game.base.Vector;
 import game.base.Window;
 import game.models.SimpleCube;
 import game.models.Tetromino;
@@ -21,7 +22,7 @@ public class GameLoop implements Game.Loop {
 
     List<SimpleCube> bodies = new ArrayList<>();
     private BodiesAttacher attachers;
-    private float[] initialPos = {400, 450, 0};
+    private float[] initialPos = {400, 525, 0};
     private float[] initialSpd = {0, DOWN_SPEED, 0};
     long currentTime = System.currentTimeMillis();
     int[][] landed = new int[16][10];
@@ -30,7 +31,7 @@ public class GameLoop implements Game.Loop {
     public void prepare() {
         System.out.println("PREPARE");
         glLoadIdentity();
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.05f, 0.0f);
         glMatrixMode(GL_PROJECTION);
         glOrtho(0, 800, 0, 800, 10000, -1000);
         glEnable(GL_DEPTH_TEST);
@@ -68,9 +69,8 @@ public class GameLoop implements Game.Loop {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPopMatrix();
         glPushMatrix();
-
-        glRotated(-45, 1, 1, 0);
-        glColor3d(1, 1, 0);
+        glRotated(10f, 1f, -4.5f, 0);
+        glColor3d(1, 1, 1);
 
         Window grid = new Window();
         for (SimpleCube body : bodies)
@@ -91,17 +91,52 @@ public class GameLoop implements Game.Loop {
     public void step() {
         if (!pause) {
             currentTime = System.currentTimeMillis();
-
             if (attachers.checkCollision(bodies)) {
                 attachers.stop();
                 bodies.addAll(attachers.getCubes());
                 createNewAttacher();
+                checkBoxes();
             } else {
                 attachers.step();
             }
             busyWait(currentTime + 300);
         }
     }
+
+    private void checkBoxes() {
+        int[] rowCount = new int[21];
+        for (SimpleCube cube : bodies) {
+            rowCount[(int) (cube.position[1] - 25) / 25]++;
+        }
+        for (int i = 0; i < rowCount.length; i++) {
+            if (rowCount[i] >= 10) {
+                clearLine(i);
+            }
+        }
+        for (int i = 0; i < rowCount.length; i++) {
+            if (rowCount[i] >= 10) {
+                downBodies(i);
+            }
+        }
+    }
+
+    private void downBodies(int i) {
+        float[] deltaY = {0, -25f, 0};
+        for (SimpleCube cube : bodies) {
+            if (((cube.position[1] - 25) / 25) > i)
+                cube.position = Vector.add(cube.getPosition(), deltaY);
+        }
+    }
+
+    private void clearLine(int i) {
+        int pos = i * 25 + 25;
+        for (int j = 0; j < bodies.size(); j++) {
+            if (bodies.get(j).position[1] == pos) {
+                bodies.remove(j);
+            }
+        }
+    }
+
 
     void initLanded() {
         for (int row = 0; row < landed.length; row++) {

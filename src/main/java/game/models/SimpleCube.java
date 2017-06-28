@@ -5,7 +5,6 @@ import game.base.models.Cube;
 import static game.base.Constants.CUBE_SIZE;
 
 public class SimpleCube extends Body {
-    float[] color;
 
     public SimpleCube(float[] initialPos, float[] initialSpeed) {
         position = initialPos;
@@ -14,12 +13,11 @@ public class SimpleCube extends Body {
 
     @Override
     public void render() {
-
         Cube.renderCube(position, CUBE_SIZE);
     }
 
     public boolean willCollide(SimpleCube cube) {
-        return ((Math.abs(cube.position[1] - position[1])) < CUBE_SIZE) && ((Math.abs(cube.position[0] - position[0])) < CUBE_SIZE);
+        return ((Math.abs(cube.position[1] - position[1])) <= CUBE_SIZE) && ((Math.abs(cube.position[0] - position[0])) < CUBE_SIZE);
     }
 
 }
