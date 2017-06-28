@@ -3,6 +3,7 @@ package game;
 
 import game.base.BodiesAttacher;
 import game.base.Game;
+import game.base.Window;
 import game.models.*;
 import org.lwjgl.BufferUtils;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import static game.base.Constants.DOWN_SPEED;
+import static game.base.Constants.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -20,8 +21,10 @@ public class GameLoop implements Game.Loop {
 
     List<SimpleCube> bodies = new ArrayList<>();
     private BodiesAttacher attachers;
-    private float[] initialPos = {500, 800, 0};
+    private float[] initialPos = {400, 450, 0};
     private float[] initialSpd = {0, DOWN_SPEED, 0};
+    long currentTime = System.currentTimeMillis();
+    int [][] landed = new int [16][10];
 
     @Override
     public void prepare() {
@@ -37,17 +40,22 @@ public class GameLoop implements Game.Loop {
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
         glLightfv(GL_LIGHT0, GL_POSITION, floatBuffer(20, 0, -20, 1));
-        Stick stick = new Stick(initialPos, initialSpd);
-        attachers = stick;
+        initLanded();
+        Tetromino tetromino = new Tetromino(initialPos, initialSpd,1);
+        attachers = tetromino;
     }
 
     @Override
     public void processInput(long window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
             pause = !pause;
-        } else if (key == GLFW_KEY_RIGHT ) {
-            attachers.moveRight();
-        } else if (key == GLFW_KEY_LEFT ) {
+        } else if ((key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) ){
+            System.out.println("press right");
+
+            if (!attachers.checkCollision(bodies)) {
+                attachers.moveRight();
+            }
+        } else if ((key == GLFW_KEY_LEFT && action == GLFW_RELEASE) ) {
             attachers.moveLeft();
         } else if (action == GLFW_RELEASE)
             attachers.rotate();
@@ -63,12 +71,15 @@ public class GameLoop implements Game.Loop {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPopMatrix();
         glPushMatrix();
-        glRotated(-10, 1, 1, 0);
+        glRotated(-45, 1, 1, 0);
         glColor3d(1, 1, 0);
+
+        Window grid = new Window();
         for (SimpleCube body : bodies)
             body.render();
         for (SimpleCube body : attachers.getCubes())
             body.render();
+
     }
 
     @Override
@@ -81,6 +92,8 @@ public class GameLoop implements Game.Loop {
     @Override
     public void step() {
         if (!pause) {
+            currentTime = System.currentTimeMillis();
+
             if (attachers.checkCollision(bodies)) {
                 attachers.stop();
                 bodies.addAll(attachers.getCubes());
@@ -88,32 +101,41 @@ public class GameLoop implements Game.Loop {
             } else {
                 attachers.step();
             }
+            busyWait(currentTime+300);
+        }
+    }
+
+    void initLanded() {
+        for (int row = 0; row < landed.length; row++) {
+            for (int col = 0; col < landed[row].length; col++) {
+                landed[row][col] = 0;
+            }
         }
     }
 
     private void createNewAttacher() {
         Random generator = new Random();
-        switch(generator.nextInt(7)) {
+        switch (generator.nextInt(7)) {
             case 0:
-                attachers = new Stick(initialPos, initialSpd);
+                attachers = new Tetromino(initialPos, initialSpd,1);
                 break;
             case 1:
-                attachers = new StickJ(initialPos, initialSpd);
+                attachers = new Tetromino(initialPos, initialSpd,2);
                 break;
             case 2:
-                attachers = new StickL(initialPos, initialSpd);
+                attachers = new Tetromino(initialPos, initialSpd,3);
                 break;
             case 3:
-                attachers = new StickO(initialPos, initialSpd);
+                attachers = new Tetromino(initialPos, initialSpd,4);
                 break;
             case 4:
-                attachers = new StickS(initialPos, initialSpd);
+                attachers = new Tetromino(initialPos, initialSpd,5);
                 break;
             case 5:
-                attachers = new StickT(initialPos, initialSpd);
+                attachers = new Tetromino(initialPos, initialSpd,6);
                 break;
             case 6:
-                attachers = new StickZ(initialPos, initialSpd);
+                attachers = new Tetromino(initialPos, initialSpd,1);
                 break;
         }
     }
@@ -126,4 +148,7 @@ public class GameLoop implements Game.Loop {
         return fb;
     }
 
+    public static void busyWait(long time){
+        while(System.currentTimeMillis() < time) Thread.yield();
+    }
 }

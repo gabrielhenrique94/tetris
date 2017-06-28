@@ -29,5 +29,7 @@ public abstract class Body {
         position = add(position, speed);
     }
 
-
+    public float[] getPosition() {
+        return position;
+    }
 }

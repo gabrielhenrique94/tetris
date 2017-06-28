@@ -4,7 +4,7 @@ import game.base.BodiesAttacher;
 import game.base.Vector;
 import game.base.models.Cube;
 
-import static game.base.Constants.CUBE_SIZE;
+import static game.base.Constants.*;
 import static game.base.Vector.add;
 import static game.base.Vector.sub;
 
@@ -43,15 +43,21 @@ public class StickJ extends BodiesAttacher {
 
     @Override
     public void rotate() {
+
         rotacao = (rotacao + 1)%4;
     }
 
     public void moveRight() {
-        super.moveRight();
+
+        if((cubes[0].position[0] < SIDE_RIGHT_POSITION)&& (cubes[1].position[0] < SIDE_RIGHT_POSITION)&&(cubes[2].position[0] < SIDE_RIGHT_POSITION)&&(cubes[3].position[0] < SIDE_RIGHT_POSITION)) {
+            super.moveRight();
+        }
     }
 
     public void moveLeft() {
         super.moveLeft();
     }
+
+
 }
 
