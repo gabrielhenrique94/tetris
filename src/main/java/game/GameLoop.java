@@ -1,14 +1,16 @@
+
 package game;
 
 import game.base.BodiesAttacher;
 import game.base.Game;
-import game.models.SimpleCube;
-import game.models.Stick;
+import game.models.*;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 import static game.base.Constants.DOWN_SPEED;
 import static org.lwjgl.glfw.GLFW.*;
@@ -88,7 +90,30 @@ public class GameLoop implements Game.Loop {
     }
 
     private void createNewAttacher() {
-        attachers = new Stick(initialPos, initialSpd);
+        Random generator = new Random();
+        switch (generator.nextInt(7)) {
+            case 0:
+                attachers = new Stick(initialPos, initialSpd);
+                break;
+            case 1:
+                attachers = new StickJ(initialPos, initialSpd);
+                break;
+            case 2:
+                attachers = new StickL(initialPos, initialSpd);
+                break;
+            case 3:
+                attachers = new StickO(initialPos, initialSpd);
+                break;
+            case 4:
+                attachers = new StickS(initialPos, initialSpd);
+                break;
+            case 5:
+                attachers = new StickT(initialPos, initialSpd);
+                break;
+            case 6:
+                attachers = new StickZ(initialPos, initialSpd);
+                break;
+        }
     }
 
     public FloatBuffer floatBuffer(float a, float b, float c, float d) {
@@ -98,6 +123,5 @@ public class GameLoop implements Game.Loop {
         fb.flip();
         return fb;
     }
-
 
 }

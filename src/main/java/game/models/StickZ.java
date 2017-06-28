@@ -11,8 +11,8 @@ import static game.base.Vector.sub;
 /**
  * Created by Andre on 25/06/2017.
  */
-public class StickT extends BodiesAttacher {
-    public StickT(float[] position, float[] speed) {
+public class StickZ extends BodiesAttacher {
+    public StickZ(float[] position, float[] speed) {
         super();
         this.position = position;
         this.speed = speed;
@@ -23,10 +23,8 @@ public class StickT extends BodiesAttacher {
     }
 
     int rotacao = 0;
-    float delta[][][] = {{{0,0,0},{-CUBE_SIZE,0,0},{0,CUBE_SIZE,0},{CUBE_SIZE,0,0}},
-                        {{0,0,0},{0,-CUBE_SIZE,0},{CUBE_SIZE,0,0},{0,CUBE_SIZE,0}},
-                        {{0,0,0},{CUBE_SIZE,0,0},{0,-CUBE_SIZE,0},{-CUBE_SIZE,0,0}},
-                        {{0,0,0},{0,CUBE_SIZE,0},{-CUBE_SIZE,0,0},{0,-CUBE_SIZE,0}}};
+    float delta[][][] = {   {{0,0,0},{-CUBE_SIZE,0,0},{0,-CUBE_SIZE,0},{CUBE_SIZE,-CUBE_SIZE,0}},
+            {{0,0,0},{0,CUBE_SIZE,0},{-CUBE_SIZE,0,0},{-CUBE_SIZE,-CUBE_SIZE,0}}};
     @Override
     public void step() {
         super.step();
@@ -41,7 +39,7 @@ public class StickT extends BodiesAttacher {
 
     @Override
     public void rotate() {
-        rotacao = (rotacao + 1)%4;
+        rotacao = (rotacao + 1)%2;
     }
 
     public void moveRight() {
