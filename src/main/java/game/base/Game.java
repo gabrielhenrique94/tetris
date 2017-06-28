@@ -97,7 +97,7 @@ public class Game {
         } // the stack frame is popped automatically
 
         glfwMakeContextCurrent(window);
-
+//        glEnable(GL_BLEND);
 //        glfwSwapInterval(1);
         // Make the window visible
         glfwShowWindow(window);
@@ -114,7 +114,6 @@ public class Game {
             glfwPollEvents();
         }
     }
-
 
 
 }

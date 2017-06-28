@@ -3,17 +3,18 @@ package game;
 
 import game.base.BodiesAttacher;
 import game.base.Game;
+import game.base.Vector;
 import game.base.Window;
-import game.models.*;
+import game.models.SimpleCube;
+import game.models.Tetromino;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
 
-import static game.base.Constants.*;
+import static game.base.Constants.DOWN_SPEED;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -21,16 +22,16 @@ public class GameLoop implements Game.Loop {
 
     List<SimpleCube> bodies = new ArrayList<>();
     private BodiesAttacher attachers;
-    private float[] initialPos = {400, 450, 0};
+    private float[] initialPos = {400, 525, 0};
     private float[] initialSpd = {0, DOWN_SPEED, 0};
     long currentTime = System.currentTimeMillis();
-    int [][] landed = new int [16][10];
+    int[][] landed = new int[16][10];
 
     @Override
     public void prepare() {
         System.out.println("PREPARE");
         glLoadIdentity();
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.05f, 0.0f);
         glMatrixMode(GL_PROJECTION);
         glOrtho(0, 800, 0, 800, 10000, -1000);
         glEnable(GL_DEPTH_TEST);
@@ -41,7 +42,7 @@ public class GameLoop implements Game.Loop {
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
         glLightfv(GL_LIGHT0, GL_POSITION, floatBuffer(20, 0, -20, 1));
         initLanded();
-        Tetromino tetromino = new Tetromino(initialPos, initialSpd,1);
+        Tetromino tetromino = new Tetromino(initialPos, initialSpd, 1);
         attachers = tetromino;
     }
 
@@ -49,18 +50,15 @@ public class GameLoop implements Game.Loop {
     public void processInput(long window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
             pause = !pause;
-        } else if ((key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) ){
+        } else if ((key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)) {
             System.out.println("press right");
-
             if (!attachers.checkCollision(bodies)) {
                 attachers.moveRight();
             }
-        } else if ((key == GLFW_KEY_LEFT && action == GLFW_RELEASE) ) {
+        } else if ((key == GLFW_KEY_LEFT && action == GLFW_RELEASE)) {
             attachers.moveLeft();
-        } else if (action == GLFW_RELEASE)
+        } else if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
             attachers.rotate();
-
-//            glfwSetWindowShouldClose(window, true);
     }
 
     int count = 0;
@@ -71,8 +69,8 @@ public class GameLoop implements Game.Loop {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPopMatrix();
         glPushMatrix();
-        glRotated(-45, 1, 1, 0);
-        glColor3d(1, 1, 0);
+        glRotated(10f, 1f, -4.5f, 0);
+        glColor3d(1, 1, 1);
 
         Window grid = new Window();
         for (SimpleCube body : bodies)
@@ -93,17 +91,52 @@ public class GameLoop implements Game.Loop {
     public void step() {
         if (!pause) {
             currentTime = System.currentTimeMillis();
-
             if (attachers.checkCollision(bodies)) {
                 attachers.stop();
                 bodies.addAll(attachers.getCubes());
                 createNewAttacher();
+                checkBoxes();
             } else {
                 attachers.step();
             }
-            busyWait(currentTime+300);
+            busyWait(currentTime + 300);
         }
     }
+
+    private void checkBoxes() {
+        int[] rowCount = new int[21];
+        for (SimpleCube cube : bodies) {
+            rowCount[(int) (cube.position[1] - 25) / 25]++;
+        }
+        for (int i = 0; i < rowCount.length; i++) {
+            if (rowCount[i] >= 10) {
+                clearLine(i);
+            }
+        }
+        for (int i = 0; i < rowCount.length; i++) {
+            if (rowCount[i] >= 10) {
+                downBodies(i);
+            }
+        }
+    }
+
+    private void downBodies(int i) {
+        float[] deltaY = {0, -25f, 0};
+        for (SimpleCube cube : bodies) {
+            if (((cube.position[1] - 25) / 25) > i)
+                cube.position = Vector.add(cube.getPosition(), deltaY);
+        }
+    }
+
+    private void clearLine(int i) {
+        int pos = i * 25 + 25;
+        for (int j = 0; j < bodies.size(); j++) {
+            if (bodies.get(j).position[1] == pos) {
+                bodies.remove(j);
+            }
+        }
+    }
+
 
     void initLanded() {
         for (int row = 0; row < landed.length; row++) {
@@ -117,25 +150,25 @@ public class GameLoop implements Game.Loop {
         Random generator = new Random();
         switch (generator.nextInt(7)) {
             case 0:
-                attachers = new Tetromino(initialPos, initialSpd,1);
+                attachers = new Tetromino(initialPos, initialSpd, 1);
                 break;
             case 1:
-                attachers = new Tetromino(initialPos, initialSpd,2);
+                attachers = new Tetromino(initialPos, initialSpd, 2);
                 break;
             case 2:
-                attachers = new Tetromino(initialPos, initialSpd,3);
+                attachers = new Tetromino(initialPos, initialSpd, 3);
                 break;
             case 3:
-                attachers = new Tetromino(initialPos, initialSpd,4);
+                attachers = new Tetromino(initialPos, initialSpd, 4);
                 break;
             case 4:
-                attachers = new Tetromino(initialPos, initialSpd,5);
+                attachers = new Tetromino(initialPos, initialSpd, 5);
                 break;
             case 5:
-                attachers = new Tetromino(initialPos, initialSpd,6);
+                attachers = new Tetromino(initialPos, initialSpd, 6);
                 break;
             case 6:
-                attachers = new Tetromino(initialPos, initialSpd,1);
+                attachers = new Tetromino(initialPos, initialSpd, 1);
                 break;
         }
     }
@@ -148,7 +181,7 @@ public class GameLoop implements Game.Loop {
         return fb;
     }
 
-    public static void busyWait(long time){
-        while(System.currentTimeMillis() < time) Thread.yield();
+    public static void busyWait(long time) {
+        while (System.currentTimeMillis() < time) Thread.yield();
     }
 }
