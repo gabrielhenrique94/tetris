@@ -118,7 +118,6 @@ public class Cube implements BaseModel {
         cube.setSize(size);
         cube.setOrigin(origin);
         cube.setColor(color);
-        System.out.println(color);
         cube.render();
     }
 }

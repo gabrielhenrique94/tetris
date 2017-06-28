@@ -76,7 +76,7 @@ public class Tetromino extends BodiesAttacher {
         switch (this.tipo) {
             //1=I 2=J 3=L 4=O 5=S 6=T 7=Z
             case 1:
-                delta1 = deltaJ[rotacao];
+                delta1 = deltaI[rotacao];
                 break;
             case 2:
                 delta1 = deltaJ[rotacao];

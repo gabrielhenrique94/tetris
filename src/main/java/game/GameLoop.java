@@ -51,7 +51,6 @@ public class GameLoop implements Game.Loop {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
             pause = !pause;
         } else if ((key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)) {
-            System.out.println("press right");
             if (!attachers.checkCollision(bodies)) {
                 attachers.moveRight();
             }
@@ -69,7 +68,7 @@ public class GameLoop implements Game.Loop {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPopMatrix();
         glPushMatrix();
-        glRotated(10f, 1f, -4.5f, 0);
+        glRotated(10f, -4f, 1f, 0);
         glColor3d(1, 1, 1);
 
         Window grid = new Window();
@@ -168,7 +167,7 @@ public class GameLoop implements Game.Loop {
                 attachers = new Tetromino(initialPos, initialSpd, 6);
                 break;
             case 6:
-                attachers = new Tetromino(initialPos, initialSpd, 1);
+                attachers = new Tetromino(initialPos, initialSpd, 7);
                 break;
         }
     }
