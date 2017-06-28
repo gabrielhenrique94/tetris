@@ -20,6 +20,7 @@ public class Tetromino extends BodiesAttacher {
         this.cubes = new SimpleCube[4];
         for (int i = 0; i < cubes.length; i++) {
             cubes[i] = new SimpleCube(position, speed);
+            cubes[i].color = tipo;
         }
         this.tipo = tipo;
     }

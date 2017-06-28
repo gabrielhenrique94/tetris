@@ -18,7 +18,7 @@ public class SimpleCube extends Body {
 
     @Override
     public void render() {
-        Cube.renderCube(position, CUBE_SIZE);
+        Cube.renderCube(position, CUBE_SIZE, color);
     }
 
     public boolean willCollide(SimpleCube cube) {
