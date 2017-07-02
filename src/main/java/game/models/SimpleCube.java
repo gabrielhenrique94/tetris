@@ -20,4 +20,7 @@ public class SimpleCube extends Body {
         return ((Math.abs(cube.position[1] - position[1])) <= CUBE_SIZE) && ((Math.abs(cube.position[0] - position[0])) < CUBE_SIZE);
     }
 
+    public boolean willCollideLateral(SimpleCube cube) {
+        return ((Math.abs(cube.position[1] - position[1])) == 0) && ((Math.abs(cube.position[0] - position[0])) == CUBE_SIZE);
+    }
 }

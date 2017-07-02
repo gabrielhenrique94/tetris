@@ -11,12 +11,15 @@ import static game.base.Constants.*;
 public class Window {
 
     public Window () {
+        //drawBackground();
         drawGrid(650);
     }
     void drawGrid(float HALF_GRID_SIZE)
     {
         for(int x = (int)SIDE_LEFT_POSITION; x <= (int)SIDE_RIGHT_POSITION; x=x+25  ){
+
             glBegin(GL_LINES);
+            glColor3d(1, 1, 1);
             glVertex3f(x,550,0);
             glVertex3f(x,25,0);
             glEnd();
@@ -40,5 +43,24 @@ public class Window {
             glVertex3f(z,25,CUBE_SIZE);
             glEnd();
         }
+        glColor3d(1, 1, 0);
+    }
+
+    public void drawBackground() {
+
+        glRotated(-20f, -4f, 4.5f, 0);
+        glBegin(GL_QUADS);
+        glColor3d(1, 1, 1);
+        glVertex3f(0, 0, 10*CUBE_SIZE);
+        glColor3d(0, 0, 0);
+        glVertex3f(0, 800, 10*CUBE_SIZE);
+        glColor3d(1, 1, 1);
+        glVertex3f(800, 800, 10*CUBE_SIZE);
+        glColor3d(0, 0, 0);
+        glVertex3f(800, 0, 10*CUBE_SIZE);
+        glEnd();
+
+        glColor3d(1, 1, 0);
+        glRotated(-45, 1, 1, 0);
     }
 }

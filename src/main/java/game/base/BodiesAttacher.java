@@ -66,4 +66,13 @@ public class BodiesAttacher {
     private boolean checkSoloCollision(SimpleCube cube) {
         return (cube.position[1]) < SOLO_POSITION;
     }
+
+    public boolean checkInnerLateralCollision(List<SimpleCube> bodies) {
+        for (SimpleCube a : cubes) {
+            for (SimpleCube b : bodies) {
+                if (a.willCollideLateral(b)) return true; //stop body and cretae a new attacher
+            }
+        }
+        return false;
+    }
 }

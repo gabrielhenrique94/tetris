@@ -105,14 +105,14 @@ public class Tetromino extends BodiesAttacher {
         cubes[3].position = add(position, delta1[3]);
 
 
-        if(!checkCollisionLeft()) {
+        while(!checkCollisionLeft()) {
             position[0] = position[0] + CUBE_SIZE;
             cubes[0].position = add(position, delta1[0]);
             cubes[1].position = add(position, delta1[1]);
             cubes[2].position = add(position, delta1[2]);
             cubes[3].position = add(position, delta1[3]);
         }
-        if(!checkCollisionRight()) {
+        while(!checkCollisionRight()) {
             position[0] = position[0] - CUBE_SIZE;
             cubes[0].position = add(position, delta1[0]);
             cubes[1].position = add(position, delta1[1]);

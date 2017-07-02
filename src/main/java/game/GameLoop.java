@@ -18,6 +18,7 @@ import static game.base.Constants.DOWN_SPEED;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+
 public class GameLoop implements Game.Loop {
 
     List<SimpleCube> bodies = new ArrayList<>();
@@ -26,22 +27,34 @@ public class GameLoop implements Game.Loop {
     private float[] initialSpd = {0, DOWN_SPEED, 0};
     long currentTime = System.currentTimeMillis();
     int[][] landed = new int[16][10];
+    float angle = 0f;
 
     @Override
     public void prepare() {
         System.out.println("PREPARE");
         glLoadIdentity();
-        glClearColor(0.0f, 0.0f, 0.05f, 0.0f);
+        glClearColor(0.8f, 0.8f, 0.8f, 0.0f);
         glMatrixMode(GL_PROJECTION);
         glOrtho(0, 800, 0, 800, 10000, -1000);
         glEnable(GL_DEPTH_TEST);
-        glEnable(GL_LIGHTING);
+        //glEnable(GL_LIGHTING);
+
         glEnable(GL_LIGHT0);
         glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
         glEnable(GL_COLOR_MATERIAL);
         glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
         glLightfv(GL_LIGHT0, GL_POSITION, floatBuffer(20, 0, -20, 1));
-        initLanded();
+
+        glEnable( GL_LINE_SMOOTH );
+        glEnable( GL_POLYGON_SMOOTH );
+        glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
+        glHint( GL_POLYGON_SMOOTH_HINT, GL_NICEST );
+
+
+        //glfwWindowHint(GLFW_STENCIL_BITS, 4);
+        //glfwWindowHint(GLFW_SAMPLES, 4);
+
+        //initLanded();
         Tetromino tetromino = new Tetromino(initialPos, initialSpd, 1);
         attachers = tetromino;
     }
@@ -51,13 +64,21 @@ public class GameLoop implements Game.Loop {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
             pause = !pause;
         } else if ((key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)) {
-            if (!attachers.checkCollision(bodies)) {
+            if (!attachers.checkInnerLateralCollision(bodies)) {
                 attachers.moveRight();
             }
         } else if ((key == GLFW_KEY_LEFT && action == GLFW_RELEASE)) {
-            attachers.moveLeft();
-        } else if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
+            if (!attachers.checkInnerLateralCollision(bodies)) {
+                attachers.moveLeft();
+            }
+        } else if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE) {
             attachers.rotate();
+        } else if (key == GLFW_KEY_R && action == GLFW_RELEASE) {
+            rotateGame(1);
+        } else if (key == GLFW_KEY_E && action == GLFW_RELEASE) {
+            rotateGame(-1);
+        }
+
     }
 
     int count = 0;
@@ -68,9 +89,13 @@ public class GameLoop implements Game.Loop {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPopMatrix();
         glPushMatrix();
-        glRotated(10f, -4f, 1f, 0);
-        glColor3d(1, 1, 1);
+        //glRotated(-20f, -4f, 4.5f, 0f);
 
+        glTranslatef(-425f,-25,0);
+        glRotated(angle, 1f, 1f, 0f);
+        glTranslatef(425f,25,0);
+
+        glColor3d(1, 1, 1);
         Window grid = new Window();
         for (SimpleCube body : bodies)
             body.render();
@@ -183,4 +208,23 @@ public class GameLoop implements Game.Loop {
     public static void busyWait(long time) {
         while (System.currentTimeMillis() < time) Thread.yield();
     }
+
+    private void rotateGame(int direction) {
+
+        if (direction == 1) {
+            if(angle < 350) {
+                angle += 10f;
+            } else {
+                angle =0;
+            }
+        } else {
+            if(angle > 0) {
+                angle -= 10f;
+            } else {
+                angle =360;
+            }
+        }
+        System.out.println("rotated angle: " + angle);
+    }
 }
+
